@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 public class ClassMessage implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "mscm_class_message")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SequenceGenerator(
             name = "mscm_class_message",
             sequenceName = "mscm_seq",

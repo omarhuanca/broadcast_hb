@@ -2,12 +2,19 @@ package io.umss.app.br.broadcast_hb.core;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Column;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +22,7 @@ import java.util.Objects;
 public class ClassChannel implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "class_channel_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SequenceGenerator(
             name = "class_channel_generator",
             sequenceName = "mscc_seq",
@@ -30,11 +37,15 @@ public class ClassChannel implements Serializable {
     @Column(name = "mscc_name")
     private String name;
 
-    @Column(name = "mscc_create_date")
-    private Timestamp createDate;
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "mscc_create_date", nullable = true, updatable = false)
+    private Date createDate;
 
-    @Column(name = "mscc_last_update_date")
-    private Timestamp lastUpdateDate;
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "mscc_last_update_date", insertable = false)
+    private Date lastUpdateDate;
 
     public Long getUid() {
         return uid;
@@ -60,19 +71,19 @@ public class ClassChannel implements Serializable {
         this.name = name;
     }
 
-    public Timestamp getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 

@@ -4,13 +4,6 @@ import org.springframework.http.HttpStatus;
 
 import io.umss.app.br.broadcast_hb.util.exception.response.XErrorResponse;
 
-/**
- * CustomBeanException captures the exception to be customized. Is used to
- * customize the body of the error response
- *
- * @author Elio Arias
- * @since 1.0
- */
 public class CustomRuntimeException extends RuntimeException { 
     private static final long serialVersionUID = 1L;
 

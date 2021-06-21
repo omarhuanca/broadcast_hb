@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
@@ -24,7 +25,7 @@ import org.hibernate.annotations.OnDeleteAction;
 public class Subscription implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "msss_subcription")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SequenceGenerator(
             name = "msss_subcription",
             sequenceName = "msss_seq",
