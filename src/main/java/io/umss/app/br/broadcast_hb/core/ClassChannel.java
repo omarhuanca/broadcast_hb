@@ -1,9 +1,11 @@
 package io.umss.app.br.broadcast_hb.core;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -11,11 +13,15 @@ import javax.persistence.TemporalType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.SequenceGenerator;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "mscc_class_channel")
@@ -46,6 +52,10 @@ public class ClassChannel implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "mscc_last_update_date", insertable = false)
     private Date lastUpdateDate;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classChannel", cascade = CascadeType.ALL)
+    private Set<Subscription> listSubscription;
 
     public Long getUid() {
         return uid;
@@ -85,6 +95,14 @@ public class ClassChannel implements Serializable {
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Set<Subscription> getListSubscription() {
+        return listSubscription;
+    }
+
+    public void setListSubscription(Set<Subscription> listSubscription) {
+        this.listSubscription = listSubscription;
     }
 
     @Override
