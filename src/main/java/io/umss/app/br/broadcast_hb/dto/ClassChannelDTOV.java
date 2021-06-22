@@ -15,7 +15,7 @@ public class ClassChannelDTOV {
     private Long uid;
 
     @NotNull(message = "The status is not valid.")
-    @Min(value = 0, message = "The state cannot be less than 0 o greather than 1.")
+    @Min(value = 0, message = "The status cannot be less than 0 o greather than 1.")
     @Max(1)
     private Integer status;
 

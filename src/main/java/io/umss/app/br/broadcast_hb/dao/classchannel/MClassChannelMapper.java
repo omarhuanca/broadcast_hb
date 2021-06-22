@@ -13,7 +13,7 @@ public class MClassChannelMapper {
     @Autowired
     private ModelMapper mapper;
 
-    public ClassChannelDTOV toDTO(ClassChannel classChannel) {
-        return mapper.map(classChannel, ClassChannelDTOV.class);
+    public ClassChannelDTOV toDTO(ClassChannel obj) {
+        return mapper.map(obj, ClassChannelDTOV.class);
     }
 }
