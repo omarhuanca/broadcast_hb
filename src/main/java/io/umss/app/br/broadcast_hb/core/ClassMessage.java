@@ -2,6 +2,7 @@ package io.umss.app.br.broadcast_hb.core;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,6 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "mscm_class_message")
@@ -29,14 +35,18 @@ public class ClassMessage implements Serializable {
     @Column(name = "mscm_status")
     private Integer status;
 
-    @Column(name = "mscm_name")
+    @Column(name = "mscm_name", nullable = false, length = 80)
     private String name;
 
-    @Column(name = "mscm_create_date")
-    private Timestamp createDate;
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "mscm_create_date", nullable = true, updatable = false)
+    private Date createDate;
 
-    @Column(name = "mscm_last_update_date")
-    private Timestamp lastUpdateDate;
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "mscm_last_update_date", insertable = false)
+    private Date lastUpdateDate;
 
     public Long getUid() {
         return uid;
@@ -62,19 +72,19 @@ public class ClassMessage implements Serializable {
         this.name = name;
     }
 
-    public Timestamp getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 

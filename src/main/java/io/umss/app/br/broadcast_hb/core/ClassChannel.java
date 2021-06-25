@@ -1,5 +1,10 @@
 package io.umss.app.br.broadcast_hb.core;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,19 +14,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.SequenceGenerator;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "mscc_class_channel")
