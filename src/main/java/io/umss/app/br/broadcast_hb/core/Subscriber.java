@@ -1,7 +1,7 @@
 package io.umss.app.br.broadcast_hb.core;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,6 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "mssb_subscriber")
@@ -26,26 +31,30 @@ public class Subscriber implements Serializable {
     @Column(name = "mssb_uid")
     private Long uid;
 
-    @Column(name = "mssb_status")
+    @Column(name = "mssb_status", nullable = false)
     private Integer status;
 
-    @Column(name = "mssb_first_name")
+    @Column(name = "mssb_first_name", nullable = false, length = 80)
     private String firstName;
 
-    @Column(name = "mssb_last_name")
+    @Column(name = "mssb_last_name", nullable = false, length = 80)
     private String lastName;
 
-    @Column(name = "mssb_email")
+    @Column(name = "mssb_email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "mssb_cellphone")
+    @Column(name = "mssb_cellphone", nullable = false, length = 15)
     private String cellphone;
 
-    @Column(name = "mssb_create_date")
-    private Timestamp createDate;
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "mssb_create_date", nullable = true, updatable = false)
+    private Date createDate;
 
-    @Column(name = "mssb_last_update_date")
-    private Timestamp lastUpdateDate;
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "mssb_last_update_date", insertable = false)
+    private Date lastUpdateDate;
 
     public Long getUid() {
         return uid;
@@ -95,20 +104,24 @@ public class Subscriber implements Serializable {
         this.cellphone = cellphone;
     }
 
-    public Timestamp getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Boolean compareStatus(Integer status) {
+        return this.status.equals(status);
     }
 
     @Override

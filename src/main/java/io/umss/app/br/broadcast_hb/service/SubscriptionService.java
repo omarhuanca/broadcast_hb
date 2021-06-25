@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import io.umss.app.br.broadcast_hb.core.ClassChannel;
+import io.umss.app.br.broadcast_hb.core.Subscriber;
 import io.umss.app.br.broadcast_hb.core.Subscription;
 import io.umss.app.br.broadcast_hb.dao.subscription.MSubscriptionMapper;
 import io.umss.app.br.broadcast_hb.dao.subscription.RSubscriptionRepository;
@@ -26,6 +27,9 @@ public class SubscriptionService {
 
     @Autowired
     ClassChannelService classChannelService;
+
+    @Autowired
+    SubscriberService subscriberService;
 
     public Optional<Subscription> findById(Long id) throws RepositoryException {
         return repository.findById(id);
@@ -52,8 +56,12 @@ public class SubscriptionService {
 
     private void verifyForeignKey(Subscription obj) {
         Optional<ClassChannel> classChannel = classChannelService.findById(obj.getClassChannel().getUid());
-        if (!classChannel.isPresent()) {
-            throw new CustomBadRequestException("class channel not found");
+        if (!classChannel.isPresent() || classChannel.get().compareStatus(ClassStatusEnum.DISABLE.getCode())) {
+            throw new CustomBadRequestException("class channel not found or status is disable");
+        }
+        Optional<Subscriber> subscriber = subscriberService.findById(obj.getSubscriber().getUid());
+        if (!subscriber.isPresent() || subscriber.get().compareStatus(ClassStatusEnum.DISABLE.getCode())) {
+            throw new CustomBadRequestException("class subscriber not found or status is disable");
         }
     }
 }

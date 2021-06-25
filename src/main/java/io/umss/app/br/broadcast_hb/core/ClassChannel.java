@@ -40,7 +40,7 @@ public class ClassChannel implements Serializable {
     @Column(name = "mscc_status")
     private Integer status;
 
-    @Column(name = "mscc_name")
+    @Column(name = "mscc_name", nullable = false, length = 80)
     private String name;
 
     @CreatedDate
@@ -103,6 +103,10 @@ public class ClassChannel implements Serializable {
 
     public void setListSubscription(Set<Subscription> listSubscription) {
         this.listSubscription = listSubscription;
+    }
+
+    public Boolean compareStatus(Integer status) {
+        return this.status.equals(status);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class Subscription implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ClassChannel classChannel;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "msss_mssb_uid")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Subscriber subscriber;
