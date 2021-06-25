@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "msbm_broadcast_message")
 public class BroadcastMessage implements Serializable {
@@ -37,13 +35,11 @@ public class BroadcastMessage implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "msbm_msct_uid")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "msbm_msms_uid")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Message message;
 
     @Column(name = "msbm_status")

@@ -20,7 +20,7 @@ public class ClassChannelDTOV {
     private Integer status;
 
     @NotNull(message = "The name is not valid.")
-    @Size(max = 30, message = "The name no should be greather than 30 characters.")
+    @Size(max = 80, message = "The name no should be greather than 80 characters.")
     @NotBlank(message = "The name is empty.")
     private String name;
 

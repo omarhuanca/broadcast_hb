@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "msat_attach")
 public class Attach implements Serializable {
@@ -37,7 +35,6 @@ public class Attach implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "msat_msms_uid")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Message message;
 
     @Column(name = "msat_status")

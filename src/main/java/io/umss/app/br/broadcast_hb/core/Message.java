@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "msms_message")
 public class Message implements Serializable {
@@ -37,14 +35,10 @@ public class Message implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "msms_mscm_uid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private ClassMessage classMessage;
 
     @Column(name = "msms_status")
     private Integer status;
-
-    @Column(name = "msms_title")
-    private String title;
 
     @Column(name = "msms_body")
     private String body;
@@ -77,14 +71,6 @@ public class Message implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getBody() {
