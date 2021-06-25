@@ -49,7 +49,7 @@ public class Subscription implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Subscriber subscriber;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "msss_msct_uid")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;

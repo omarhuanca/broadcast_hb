@@ -1,7 +1,7 @@
 package io.umss.app.br.broadcast_hb.core;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,7 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "msct_category")
@@ -30,14 +34,18 @@ public class Category implements Serializable {
     @Column(name = "msct_status")
     private Integer status;
 
-    @Column(name = "msct_name")
+    @Column(name = "msct_name", nullable = false, length = 80)
     private String name;
 
-    @Column(name = "msct_create_date")
-    private Timestamp createDate;
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "msct_create_date", nullable = true, updatable = false)
+    private Date createDate;
 
-    @Column(name = "msct_last_update_date")
-    private Timestamp lastUpdateDate;
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "msct_last_update_date", insertable = false)
+    private Date lastUpdateDate;
 
     public Long getUid() {
         return uid;
@@ -63,20 +71,24 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public Timestamp getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Boolean compareStatus(Integer status) {
+        return this.status.equals(status);
     }
 
     @Override
