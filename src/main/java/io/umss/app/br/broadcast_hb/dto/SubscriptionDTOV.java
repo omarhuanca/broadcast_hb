@@ -21,6 +21,7 @@ public class SubscriptionDTOV {
     @NotNull(message = "The subscriber is not valid.")
     private Subscriber subscriber;
 
+    @NotNull(message = "The category is not valid.")
     private Category category;
 
     @NotNull(message = "The status is not valid.")
@@ -35,6 +36,7 @@ public class SubscriptionDTOV {
     public void copyCoreObject(Subscription object) {
         object.setClassChannel(classChannel);
         object.setSubscriber(subscriber);
+        object.setCategory(category);
         object.setStatus(status);
     }
 

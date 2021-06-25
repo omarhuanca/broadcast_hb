@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import io.umss.app.br.broadcast_hb.core.Category;
 import io.umss.app.br.broadcast_hb.core.ClassChannel;
 import io.umss.app.br.broadcast_hb.core.Subscriber;
 import io.umss.app.br.broadcast_hb.core.Subscription;
@@ -30,6 +31,9 @@ public class SubscriptionService {
 
     @Autowired
     SubscriberService subscriberService;
+
+    @Autowired
+    CategoryService categoryService;
 
     public Optional<Subscription> findById(Long id) throws RepositoryException {
         return repository.findById(id);
@@ -62,6 +66,10 @@ public class SubscriptionService {
         Optional<Subscriber> subscriber = subscriberService.findById(obj.getSubscriber().getUid());
         if (!subscriber.isPresent() || subscriber.get().compareStatus(ClassStatusEnum.DISABLE.getCode())) {
             throw new CustomBadRequestException("class subscriber not found or status is disable");
+        }
+        Optional<Category> category = categoryService.findById(obj.getCategory().getUid());
+        if (!category.isPresent() || category.get().compareStatus(ClassStatusEnum.DISABLE.getCode())) {
+            throw new CustomBadRequestException("class category not found or status is disable");
         }
     }
 }
