@@ -31,7 +31,7 @@ public class Category implements Serializable {
     @Column(name = "msct_uid")
     private Long uid;
 
-    @Column(name = "msct_status")
+    @Column(name = "msct_status", nullable = false)
     private Integer status;
 
     @Column(name = "msct_name", nullable = false, length = 80)
