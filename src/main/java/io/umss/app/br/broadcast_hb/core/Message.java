@@ -1,7 +1,7 @@
 package io.umss.app.br.broadcast_hb.core;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -14,9 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "msms_message")
@@ -37,17 +41,21 @@ public class Message implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ClassMessage classMessage;
 
-    @Column(name = "msms_status")
+    @Column(name = "msms_status", nullable = false)
     private Integer status;
 
-    @Column(name = "msms_body")
+    @Column(name = "msms_body", nullable = false, length = 160)
     private String body;
 
-    @Column(name = "msms_create_date")
-    private Timestamp createDate;
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "msms_create_date", nullable = true, updatable = false)
+    private Date createDate;
 
-    @Column(name = "msms_last_update_date")
-    private Timestamp lastUpdateDate;
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "msms_last_update_date", insertable = false)
+    private Date lastUpdateDate;
 
     public Long getUid() {
         return uid;
@@ -81,19 +89,19 @@ public class Message implements Serializable {
         this.body = body;
     }
 
-    public Timestamp getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 

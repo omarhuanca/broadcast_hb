@@ -32,7 +32,7 @@ public class ClassMessage implements Serializable {
     @Column(name = "mscm_uid")
     private Long uid;
 
-    @Column(name = "mscm_status")
+    @Column(name = "mscm_status", nullable = false)
     private Integer status;
 
     @Column(name = "mscm_name", nullable = false, length = 80)
@@ -86,6 +86,10 @@ public class ClassMessage implements Serializable {
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Boolean compareStatus(Integer status) {
+        return this.status.equals(status);
     }
 
     @Override

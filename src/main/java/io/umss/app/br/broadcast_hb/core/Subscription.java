@@ -54,7 +54,7 @@ public class Subscription implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
 
-    @Column(name = "msss_status")
+    @Column(name = "msss_status", nullable = false)
     private Integer status;
 
     @CreatedDate

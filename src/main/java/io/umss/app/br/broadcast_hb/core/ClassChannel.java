@@ -37,7 +37,7 @@ public class ClassChannel implements Serializable {
     @Column(name = "mscc_uid")
     private Long uid;
 
-    @Column(name = "mscc_status")
+    @Column(name = "mscc_status", nullable = false)
     private Integer status;
 
     @Column(name = "mscc_name", nullable = false, length = 80)
