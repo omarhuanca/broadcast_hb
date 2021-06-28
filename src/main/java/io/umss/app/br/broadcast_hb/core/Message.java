@@ -105,6 +105,10 @@ public class Message implements Serializable {
         this.lastUpdateDate = lastUpdateDate;
     }
 
+    public Boolean compareStatus(Integer status) {
+        return this.status.equals(status);
+    }
+
     @Override
     public boolean equals(Object obj) {
         boolean response = false;

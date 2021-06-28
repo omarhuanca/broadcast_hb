@@ -17,10 +17,10 @@ import io.umss.app.br.broadcast_hb.util.exception.RepositoryException;
 public class ClassChannelService {
 
     @Autowired
-    RClassChannelRepository repository;
+    MClassChannelMapper mapper;
 
     @Autowired
-    MClassChannelMapper mapper;
+    RClassChannelRepository repository;
 
     public Optional<ClassChannel> findById(Long id) throws RepositoryException {
         return repository.findById(id);
