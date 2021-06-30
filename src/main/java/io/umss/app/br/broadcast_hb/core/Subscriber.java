@@ -3,12 +3,16 @@ package io.umss.app.br.broadcast_hb.core;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -16,6 +20,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "mssb_subscriber")
@@ -55,6 +61,10 @@ public class Subscriber implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "mssb_last_update_date", insertable = false)
     private Date lastUpdateDate;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "subscriber", cascade = CascadeType.ALL)
+    private Set<Subscription> listSubscription;
 
     public Long getUid() {
         return uid;
@@ -118,6 +128,14 @@ public class Subscriber implements Serializable {
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Set<Subscription> getListSubscription() {
+        return listSubscription;
+    }
+
+    public void setListSubscription(Set<Subscription> listSubscription) {
+        this.listSubscription = listSubscription;
     }
 
     public Boolean compareStatus(Integer status) {

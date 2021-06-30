@@ -3,7 +3,9 @@ package io.umss.app.br.broadcast_hb.core;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +24,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "msms_message")
@@ -56,6 +61,10 @@ public class Message implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "msms_last_update_date", insertable = false)
     private Date lastUpdateDate;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "message", cascade = CascadeType.ALL)
+    private Set<BroadcastMessage> listBroadcastMessage;
 
     public Long getUid() {
         return uid;
@@ -103,6 +112,14 @@ public class Message implements Serializable {
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Set<BroadcastMessage> getListBroadcastMessage() {
+        return listBroadcastMessage;
+    }
+
+    public void setListBroadcastMessage(Set<BroadcastMessage> listBroadcastMessage) {
+        this.listBroadcastMessage = listBroadcastMessage;
     }
 
     public Boolean compareStatus(Integer status) {
