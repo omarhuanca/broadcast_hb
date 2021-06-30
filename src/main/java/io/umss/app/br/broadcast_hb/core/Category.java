@@ -3,12 +3,16 @@ package io.umss.app.br.broadcast_hb.core;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -16,6 +20,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "msct_category")
@@ -46,6 +52,14 @@ public class Category implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "msct_last_update_date", insertable = false)
     private Date lastUpdateDate;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<Subscription> listSuscription;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<BroadcastMessage> listBroadcastMessage;
 
     public Long getUid() {
         return uid;
@@ -85,6 +99,22 @@ public class Category implements Serializable {
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Set<Subscription> getListSuscription() {
+        return listSuscription;
+    }
+
+    public void setListSuscription(Set<Subscription> listSuscription) {
+        this.listSuscription = listSuscription;
+    }
+
+    public Set<BroadcastMessage> getListBroadcastMessage() {
+        return listBroadcastMessage;
+    }
+
+    public void setListBroadcastMessage(Set<BroadcastMessage> listBroadcastMessage) {
+        this.listBroadcastMessage = listBroadcastMessage;
     }
 
     public Boolean compareStatus(Integer status) {
